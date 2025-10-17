@@ -1,11 +1,17 @@
 import React from "react";
 import { useForm } from "react-hook-form";
+import { useAuthStore } from "../stores/authStore";
 
 export default function LoginPage() {
+  const login = useAuthStore((state) => state.login);
   const { register, handleSubmit } = useForm();
 
   const onSumit = async (data) => {
-    console.log(data);
+    try {
+      await login(data.email, data.password);
+    } catch {
+      alert("Login Failed");
+    }
   };
 
   return (

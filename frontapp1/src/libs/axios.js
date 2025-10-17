@@ -2,7 +2,7 @@ import axios from "axios";
 import { useAuthStore } from "../stores/authStore";
 
 const baseConfig = {
-  baseUrl: "http://localhost:3000",
+  baseURL: "http://localhost:3000",
   timeout: 5000,
 };
 
