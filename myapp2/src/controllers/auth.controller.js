@@ -21,4 +21,8 @@ export async function login(req, res) {
   res.json({ accessToken });
 }
 
-export async function me(req, res) {}
+export async function me(req, res) {
+  const userId = req.userId;
+  const user = await getMe(userId);
+  res.json({ id: user.id, email: user.email, role: user.role });
+}

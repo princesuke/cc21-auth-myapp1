@@ -2,7 +2,7 @@ import { verifyToken } from "../utils/jwt.js";
 import createError from "http-errors";
 
 export function authMiddleWare(req, res, next) {
-  const authHeader = req.header.authorization;
+  const authHeader = req.headers.authorization;
   if (!authHeader) {
     throw createError(401, "Invalid credentials");
   }
