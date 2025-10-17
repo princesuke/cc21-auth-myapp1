@@ -15,3 +15,19 @@ export function verifyToken(token) {
   });
   return payload;
 }
+
+export function generateResetToken(userId) {
+  const token = jwt.sign({ userId }, process.env.RESET_SECRET_KEY, {
+    algorithm: "HS256",
+    expiresIn: "1h",
+  });
+
+  return token;
+}
+
+export function verifyResetToken(token) {
+  const payload = jwt.verify(token, process.env.RESET_SECRET_KEY, {
+    algorithms: "HS256",
+  });
+  return payload;
+}

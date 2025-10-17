@@ -24,3 +24,8 @@ export async function getMe(id) {
   const user = await prisma.user.findUnique({ where: { id } });
   return user;
 }
+
+export async function findUserByEmail(email) {
+  const user = await prisma.user.findUnique({ where: { email } });
+  return user;
+}

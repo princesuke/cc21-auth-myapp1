@@ -7,7 +7,7 @@ export function authMiddleWare(req, res, next) {
     throw createError(401, "Invalid credentials");
   }
   //   "Bearer jasdhahsdjalsdklasdfasdfalk;d"
-  console.log(authHeader);
+  //   console.log(authHeader);
   const token = authHeader.split(" ")[1];
   try {
     const payload = verifyToken(token);
