@@ -12,3 +12,15 @@ export async function createUser(email, password) {
 
   return result;
 }
+
+export async function verifyUser(email, password) {
+  const user = await prisma.user.findUnique({ where: { email } });
+  if (!user) return null;
+  const isMatch = await bcrypt.compare(password, user.password);
+  return isMatch ? user : null;
+}
+
+export async function getMe(id) {
+  const user = await prisma.user.findUnique({ where: { id } });
+  return user;
+}

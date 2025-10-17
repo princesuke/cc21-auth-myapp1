@@ -1,4 +1,6 @@
-import { createUser } from "../services/auth.services.js";
+import { createUser, verifyUser, getMe } from "../services/auth.services.js";
+import createError from "http-errors";
+import { generateToken } from "../utils/jwt.js";
 
 export async function register(req, res) {
   const { email, password } = req.body;
@@ -8,3 +10,15 @@ export async function register(req, res) {
     email: user.email,
   });
 }
+
+export async function login(req, res) {
+  const { email, password } = req.body;
+  const user = await verifyUser(email, password);
+  if (!user) {
+    throw createError(401, "Invalid credentials");
+  }
+  const accessToken = generateToken(user.id);
+  res.json({ accessToken });
+}
+
+export async function me(req, res) {}
