@@ -3,9 +3,14 @@ import {
   verifyUser,
   getMe,
   findUserByEmail,
+  updateUserPassword,
 } from "../services/auth.services.js";
 import createError from "http-errors";
-import { generateToken, generateResetToken } from "../utils/jwt.js";
+import {
+  generateToken,
+  generateResetToken,
+  verifyResetToken,
+} from "../utils/jwt.js";
 
 export async function register(req, res) {
   const { email, password } = req.body;
@@ -47,4 +52,20 @@ export async function forgotPassword(req, res) {
   const token = generateResetToken(user.id);
   const link = `${frontLink}/${token}`;
   res.json({ message: "Reset link generated", link });
+}
+
+export async function resetPassword(req, res) {
+  const { token } = req.params;
+  const { password } = req.body;
+  try {
+    const payload = verifyResetToken(token);
+    const userId = payload.userId;
+    const user = await updateUserPassword(userId, password);
+    res.json({
+      message: "Password reset successful",
+      user: { id: user.id, email: user.email },
+    });
+  } catch (err) {
+    throw createError(400, "Invalid or token has been expired");
+  }
 }

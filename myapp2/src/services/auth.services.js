@@ -29,3 +29,16 @@ export async function findUserByEmail(email) {
   const user = await prisma.user.findUnique({ where: { email } });
   return user;
 }
+
+export async function updateUserPassword(userId, newPassword) {
+  const hash = await bcrypt.hash(newPassword, 10);
+  const user = await prisma.user.update({
+    where: {
+      id: userId,
+    },
+    data: {
+      password: hash,
+    },
+  });
+  return user;
+}
