@@ -2,6 +2,7 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import * as authService from "../api/auth";
 import { isTokenExpired } from "../utils/tokenUtils";
+import { redirect } from "react-router";
 
 const userConfig = (set, get) => ({
   accessToken: null,
@@ -11,7 +12,7 @@ const userConfig = (set, get) => ({
     set({ accessToken });
 
     //เมื่อ login เสร็จแล้ว ให้ เรียกข้อมูล user มา
-    // get().fetchUser();
+    await get().fetchUser();
   },
   //สร้างฟังก์ชั่นเพื่อเรียกข้อมูล user
   fetchUser: async () => {

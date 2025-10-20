@@ -12,3 +12,18 @@ export async function fetchMe() {
   const res = await authApi.get("/auth/me");
   return res.data;
 }
+
+export async function sendForgotPassword(email) {
+  //ส่งข้อมูล email ไปที่ backend
+  // method post,  path -> /auth/forgot-password
+  const res = await publicApi.post("/auth/forgot-password", { email });
+
+  return res.data.link;
+}
+
+export async function resetPassword(token, newPassword) {
+  const res = await publicApi.post(`/auth/reset-password/${token}`, {
+    password: newPassword,
+  });
+  return res.data;
+}
