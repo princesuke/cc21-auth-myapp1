@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import * as authService from "../api/auth";
+import { isTokenExpired } from "../utils/tokenUtils";
 
 const userConfig = (set, get) => ({
   accessToken: null,
@@ -10,15 +11,28 @@ const userConfig = (set, get) => ({
     set({ accessToken });
 
     //เมื่อ login เสร็จแล้ว ให้ เรียกข้อมูล user มา
-    get().fetchUser();
+    // get().fetchUser();
   },
   //สร้างฟังก์ชั่นเพื่อเรียกข้อมูล user
   fetchUser: async () => {
+    //ให้เช็ค token ว่า token หมดอายุรึยัง
+    const token = get().accessToken;
+    if (!token) return;
+
+    //เรียกฟังก์ชั่นเช็ต token หมดอายุ
+    if (isTokenExpired(token)) {
+      console.warn("Token หมดอายุแล้ว");
+      return get().logout();
+    }
+
     //ประกาศตัวแปร รับค่า user จาก fetchMe
     const user = await authService.fetchMe();
     set({ user });
   },
-  logout: () => {},
+  logout: () => {
+    //เครียค่า accessToken กับ user ออกไป มันก็คือ null
+    set({ accessToken: null, user: null });
+  },
 });
 
 export const useAuthStore = create(
