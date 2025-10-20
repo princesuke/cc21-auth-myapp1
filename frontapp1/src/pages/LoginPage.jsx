@@ -1,15 +1,21 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { useAuthStore } from "../stores/authStore";
+import { useNavigate } from "react-router";
 
 export default function LoginPage() {
   const login = useAuthStore((state) => state.login);
   const { register, handleSubmit } = useForm();
 
+  //เตรียมฟังก์ชั่น navigate ไว้เรียกใช้
+  const navigate = useNavigate();
+
   const onSumit = async (data) => {
     try {
       await login(data.email, data.password);
       alert("Login Success!");
+      //ให้เด้งหน้ากลับไปที่หน้าแรก path "/"
+      navigate("/");
     } catch {
       alert("Login Failed!");
     }
