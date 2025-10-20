@@ -9,8 +9,9 @@ export default function LoginPage() {
   const onSumit = async (data) => {
     try {
       await login(data.email, data.password);
+      alert("Login Success!");
     } catch {
-      alert("Login Failed");
+      alert("Login Failed!");
     }
   };
 
