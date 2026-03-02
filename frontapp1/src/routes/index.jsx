@@ -1,6 +1,6 @@
 import { createBrowserRouter } from "react-router";
 import DashboardPage from "../pages/DashboardPage";
-import LoginPage from "../pages/LoginPage";
+import LoginPage from "../pages/login/LoginPage";
 import ForgotPasswordPage from "../pages/ForgotPasswordPage";
 import ResetPasswordPage from "../pages/ResetPasswordPage";
 // import { protectedLoader } from "../loaders/protectedLoader";
