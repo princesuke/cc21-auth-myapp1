@@ -1,13 +1,13 @@
 import ProfileLayout from "../components/ProfileLayout";
-import ProtectedRoute from "./ProtectedRoute";
+// import ProtectedRoute from "./ProtectedRoute";
+import { protectedLoader } from "../loaders/protectedLoader";
 
 const profileRoute = {
   path: "/profile",
   element: (
-    <ProtectedRoute>
       <ProfileLayout />
-    </ProtectedRoute>
   ),
+  loader: protectedLoader,  
   children: [
     {
       index: true,
