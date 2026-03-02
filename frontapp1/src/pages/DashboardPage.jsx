@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useAuthStore } from "../stores/useAuthStore";
 import { useNavigate } from "react-router";
+import { useNavigation, useLoaderData } from "react-router";
 
 export default function DashboardPage() {
   //ประกาศตัวแปร user เพื่อรับค่าจาก auth store ไว้สำหรับแสดงผล
@@ -10,6 +11,8 @@ export default function DashboardPage() {
 
   //ประกาศ navigate เพื่อใช้ redirect ไปที่หน้า login
   const navigate = useNavigate();
+
+
 
   function handleLogout() {
     logout();
@@ -21,6 +24,14 @@ export default function DashboardPage() {
     const fetchUser = useAuthStore.getState().fetchUser;
     fetchUser();
   }, []);
+
+
+    const loaderData = useLoaderData();
+    const isNavigating = navigation.state === "loading";
+
+    if (isNavigating) {
+      return <div>Loading...</div>;
+    }
 
   return (
     <div className="m-10 space-y-2">
