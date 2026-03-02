@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useAuthStore } from "../stores/authStore";
+import { useAuthStore } from "../stores/useAuthStore";
 
 const baseConfig = {
   baseURL: "http://localhost:3000",

@@ -3,24 +3,27 @@ import DashboardPage from "../pages/DashboardPage";
 import LoginPage from "../pages/login/LoginPage";
 import ForgotPasswordPage from "../pages/ForgotPasswordPage";
 import ResetPasswordPage from "../pages/ResetPasswordPage";
-// import { protectedLoader } from "../loaders/protectedLoader";
-import ProtectedRoute from "./ProtectedRoute";
+import { protectedLoader, roleLoader } from "../loaders/protectedLoader";
+import { publicLoader } from "../loaders/publicLoader";
+// import ProtectedRoute from "./ProtectedRoute";
 import AdminPage from "../pages/AdminPage";
 import profileRoute from "./ProfileRoute";
+
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: (
-      <ProtectedRoute>
+      // <ProtectedRoute>
         <DashboardPage />
-      </ProtectedRoute>
+      // </ProtectedRoute>
     ),
-    // loader: protectedLoader,
+    loader: protectedLoader,
   },
   {
     path: "/login",
     element: <LoginPage />,
+    loader: publicLoader,
   },
   {
     path: "/forgot-password",
@@ -33,10 +36,11 @@ const router = createBrowserRouter([
   {
     path: "/admin",
     element: (
-      <ProtectedRoute allowedRoles={["admin", "staff", "superadmin"]}>
+      // <ProtectedRoute allowedRoles={["admin", "staff", "superadmin"]}>
         <AdminPage />
-      </ProtectedRoute>
+      // </ProtectedRoute>
     ),
+    loader:roleLoader(["admin", "staff", "superadmin"]),
   },
   profileRoute,
 ]);

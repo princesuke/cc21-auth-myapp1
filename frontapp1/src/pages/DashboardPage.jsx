@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useAuthStore } from "../stores/authStore";
+import { useAuthStore } from "../stores/useAuthStore";
 import { useNavigate } from "react-router";
 
 export default function DashboardPage() {

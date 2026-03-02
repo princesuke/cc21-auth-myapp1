@@ -2,7 +2,6 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import * as authService from "../api/auth";
 import { isTokenExpired } from "../utils/tokenUtils";
-import { redirect } from "react-router";
 
 const userConfig = (set, get) => ({
   accessToken: null,

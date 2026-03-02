@@ -1,4 +1,4 @@
-import { useAuthStore } from "../stores/authStore";
+import { useAuthStore } from "../stores/useAuthStore";
 import { Navigate } from "react-router";
 
 export default function ProtectedRoute({ allowedRoles, children }) {
